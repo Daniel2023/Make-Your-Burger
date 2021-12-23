@@ -25,12 +25,12 @@
         <div class="input-container">
           <label for="carne">Selecione a carne do seu Burger:</label>
           <select name="carne" id="carne" v-model="carne">
-            <option value="pao">Selecione o tipo de carne</option>
-            <option v-for="carne in carnes" :key="carne.id" value="carne.tipo">
+            <option value="">Selecione o tipo de carne</option>
+            <option v-for="carne in carnes" :key="carne.id" :value="carne.tipo">
               {{ carne.tipo }}
             </option>
           </select>
-        </div> 
+        </div>
         <div id="opcionais-container" class="input-container">
           <label id="opcionais-title" for="opcionais"
             >Selecione os opcionais:</label
@@ -71,20 +71,21 @@ export default {
       pao: null,
       carne: null,
       opcionais: [],
+      status: "Solicitado",
       msg: null,
     };
   },
   methods: {
     async getIngredientes() {
-      const req = await fetch("http://localhost:3000/ingredientes");
+      const req = await fetch('http://localhost:3000/ingredientes');
       const data = await req.json();
 
-      (this.paes = data.paes),
-        (this.carnes = data.carnes),
-        (this.opcionaisdata = data.opcionais);
+      this.paes = data.paes,
+      this.carnes = data.carnes,
+      this.opcionaisdata = data.opcionais;
     },
     async createBurger(e) {
-      e.preventDefault();
+      e.preventDefault()
 
       const data = {
         nome: this.nome,
@@ -93,7 +94,7 @@ export default {
         opcionais: Array.from(this.opcionais),
         status: "Solicitado",
       };
-      const dataJSON = JSON.stringify(data);
+      const dataJSON = JSON.stringify(data)
 
       const req = await fetch("http://localhost:3000/burgers", {
         method: "POST",
@@ -102,6 +103,7 @@ export default {
       });
 
       const res = await req.json();
+
       //colocar uma msg de sistema
       this.msg = `Pedido Nº ${res.id} realizado com sucesso`;
 
