@@ -30,7 +30,7 @@
               {{ carne.tipo }}
             </option>
           </select>
-        </div>
+        </div> 
         <div id="opcionais-container" class="input-container">
           <label id="opcionais-title" for="opcionais"
             >Selecione os opcionais:</label
@@ -90,7 +90,7 @@ export default {
         nome: this.nome,
         carne: this.carne,
         pao: this.pao,
-        opcionais: this.opcionais,
+        opcionais: Array.from(this.opcionais),
         status: "Solicitado",
       };
       const dataJSON = JSON.stringify(data);
