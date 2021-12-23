@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Message :msg="msg" v-show="msg"/>
+    <Message :msg="msg" v-show="msg" />
     <div>
       <form id="burger-form" @submit="createBurger">
         <div class="input-container">
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import Message from './Message.vue'
+import Message from "./Message.vue";
 
 export default {
   name: "BurgerForm",
@@ -79,47 +79,47 @@ export default {
       const req = await fetch("http://localhost:3000/ingredientes");
       const data = await req.json();
 
-      this.paes = data.paes,
-      this.carnes = data.carnes,
-      this.opcionaisdata = data.opcionais
+      (this.paes = data.paes),
+        (this.carnes = data.carnes),
+        (this.opcionaisdata = data.opcionais);
     },
-  async createBurger(e) {
-    e.preventDefault();
+    async createBurger(e) {
+      e.preventDefault();
 
-    const data = {
-      nome: this.nome,
-      carne: this.carne,
-      pao: this.pao,
-      opcionais: this.opcionais,
-      status: "Solicitado",
-    }
-    const dataJSON = JSON.stringify(data)
+      const data = {
+        nome: this.nome,
+        carne: this.carne,
+        pao: this.pao,
+        opcionais: this.opcionais,
+        status: "Solicitado",
+      };
+      const dataJSON = JSON.stringify(data);
 
-    const req = await fetch("http://localhost:3000/burgers",{
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: dataJSON
-    });
+      const req = await fetch("http://localhost:3000/burgers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: dataJSON,
+      });
 
-    const res = await req.json();
-    //colocar uma msg de sistema
-    this.msg = `Pedido Nº ${res.id} realizado com sucesso`;
+      const res = await req.json();
+      //colocar uma msg de sistema
+      this.msg = `Pedido Nº ${res.id} realizado com sucesso`;
 
-    //limpar msg
-    setTimeout(() => this.msg= "", 3000);
+      //limpar msg
+      setTimeout(() => (this.msg = ""), 3000);
 
-    this.nome = "";
-    this.carne = "";
-    this.pao = "";
-    this.opcionais = "";
-  }
-  },
-  components: {
-    Message
+      this.nome = "";
+      this.carne = "";
+      this.pao = "";
+      this.opcionais = "";
+    },
   },
 
   mounted() {
     this.getIngredientes();
+  },
+  components: {
+    Message,
   },
 };
 </script>
